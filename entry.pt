@@ -1,0 +1,9 @@
+#!/bin/ash
+COMMAND="timeout -t %TIMEOUT% python ./fuzz.py %PROTOCOL% %TARGET% %PORT% %ADD%"
+
+if [[ -n "${TRUNCATE}" ]] ; then 
+	COMMAND="$COMMAND | tail -n ${TRUNCATE}" ; 
+fi
+echo Starting $COMMAND
+eval $COMMAND > /log/fuzz${LOGID}.log
+return $?
